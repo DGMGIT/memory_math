@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">memory_math</string>
+    <string name="add_test">Add Test</string>
+    <string name="display_db_test">Display DB test</string>
+</resources>
