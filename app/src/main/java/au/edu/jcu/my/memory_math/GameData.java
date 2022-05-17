@@ -2,6 +2,7 @@ package au.edu.jcu.my.memory_math;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -20,16 +21,19 @@ public class GameData extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        sqLiteDatabase.execSQL("CREATE TABLE "+TABLE1+" (id INTEGER PRIMARY KEY AUTOINCREMENT, "
-                + "USERNAME TEXT, "
+        sqLiteDatabase.execSQL("CREATE TABLE "+TABLE1+" ("
+                + "USERNAME TEXT UNIQUE PRIMARY KEY, "
                 + "PASSWORD TEXT);");
 
-        sqLiteDatabase.execSQL("CREATE TABLE "+TABLE2+" (id INTEGER PRIMARY KEY AUTOINCREMENT, "
-                + "MODE TEXT);");
+        sqLiteDatabase.execSQL("CREATE TABLE "+TABLE2+" ("
+                + " USERNAME TEXT, "
+                + " MODE TEXT, "
+                + " HIGHSCORE TEXT, "
+                + " FOREIGN KEY ("+ "USERNAME" +") REFERENCES  "+TABLE1+"("+"USERNAME"+"));");
 
         sqLiteDatabase.execSQL("CREATE TABLE "+TABLE3+" (id INTEGER PRIMARY KEY AUTOINCREMENT, "
-                + "USERNAME TEXT, "
-                + "PASSWORD TEXT);");
+                + "MODE TEXT, "
+                + "SCORE TEXT);");
     }
 
     @Override
@@ -39,11 +43,31 @@ public class GameData extends SQLiteOpenHelper {
     public void adduser(String username, String password){
         SQLiteDatabase database = this.getWritableDatabase();
 
-        String sqlCode = "INSERT INTO USERS (USERNAME, PASSWORD) VALUES ("
+        String sqlCode0 = "INSERT INTO "+TABLE1+" (USERNAME, PASSWORD) VALUES ("
                 + "\"" + username + "\"," + "\"" + password + "\");";
 
-        System.out.println(sqlCode);
-        database.execSQL(sqlCode);
+        String sqlCode1 = "INSERT INTO "+TABLE2+" (USERNAME, MODE, HIGHSCORE) VALUES("
+                + "\"" + username + "\"," + "\"" + "EASY" + "\"," + "\"" + "HIGHSCORE: 0" + "\");";
+
+        String sqlCode2 = "INSERT INTO "+TABLE2+" (USERNAME, MODE, HIGHSCORE) VALUES("
+                + "\"" + username + "\"," + "\"" + "MEDIUM" + "\"," + "\"" + "HIGHSCORE: 0" + "\");";
+
+        String sqlCode3 = "INSERT INTO "+TABLE2+" (USERNAME, MODE, HIGHSCORE) VALUES("
+                + "\"" + username + "\"," + "\"" + "HARD" + "\"," + "\"" + "HIGHSCORE: 0" + "\");";
+
+
+        System.out.println(sqlCode0);
+        database.execSQL(sqlCode0);
+
+        System.out.println(sqlCode1);
+        database.execSQL(sqlCode1);
+
+        System.out.println(sqlCode2);
+        database.execSQL(sqlCode2);
+
+        System.out.println(sqlCode3);
+        database.execSQL(sqlCode3);
+
         database.close();
     }
 
@@ -52,17 +76,37 @@ public class GameData extends SQLiteOpenHelper {
         database.delete("FLASHCARDS", "id =" + i, null);
     }
 
-    public List<String> getAll(){
+    public int numUsers (){
         SQLiteDatabase database = this.getReadableDatabase();
 
-        Cursor cursor = database.rawQuery("SELECT * FROM USERS;", null);
+        int count = (int) DatabaseUtils.queryNumEntries(database, TABLE1);
+        database.close();
+        return count;
+    }
+
+    public boolean isEmpty (String table) {
+        SQLiteDatabase database = this.getReadableDatabase();
+
+        Cursor cursor = database.rawQuery("SELECT * FROM " + table, null);
+        boolean rowExists;
+        rowExists = cursor.moveToFirst(); // if empty = false
+        cursor.close();
+        database.close();
+        return rowExists;
+    }
+
+
+    public List<String> getAll(String table){
+        SQLiteDatabase database = this.getReadableDatabase();
+
+        Cursor cursor = database.rawQuery("SELECT * FROM " + table + ";", null);
 
         List<String> result = new ArrayList<>();
         while (cursor.moveToNext()){
-            int id = cursor.getInt(0);
-            String username = cursor.getString(1);
-            String password = cursor.getString(2);
-            System.out.println("data record contains; " + id + username + password );
+//            int id = cursor.getInt(0);
+            String username = cursor.getString(0);
+            String password = cursor.getString(1);
+            System.out.println("data record contains; " + username + password );
 
             result.add(username + ":" + password);
         }
@@ -72,10 +116,10 @@ public class GameData extends SQLiteOpenHelper {
         return result;
     }
 
-    public List<String> getSelect(int i){
+    public List<String> getSelect(String table, int i){
         SQLiteDatabase database = this.getReadableDatabase();
 
-        Cursor cursor = database.rawQuery("SELECT * FROM USERS;", null);
+        Cursor cursor = database.rawQuery("SELECT * FROM " + table + ";", null);
 
         List<String> result = new ArrayList<>();
         while (cursor.moveToNext()){
