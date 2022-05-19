@@ -2,7 +2,6 @@ package au.edu.jcu.my.memory_math;
 
 import android.content.Context;
 import android.content.Intent;
-import android.database.DatabaseUtils;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -119,7 +118,7 @@ public class Login extends Fragment implements View.OnClickListener {
     }
 
     public void buttonPressed() {
-        Intent intent = new Intent(thisContext, testDB.class);
+        Intent intent = new Intent(thisContext, TestDB.class);
         startActivity(intent);
         getActivity().finish();
     }

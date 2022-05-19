@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Memory_math" >
        <activity
-            android:name=".testDB"
+            android:name=".TestDB"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

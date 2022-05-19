@@ -70,7 +70,7 @@ public class DbTest extends Fragment implements View.OnClickListener {
     }
 
     public void buttonPressed() {
-        Intent intent = new Intent(thisContext, testDB.class);
+        Intent intent = new Intent(thisContext, TestDB.class);
         startActivity(intent);
     }
 

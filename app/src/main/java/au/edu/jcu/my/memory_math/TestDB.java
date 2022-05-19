@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.List;
 
-public class testDB extends AppCompatActivity {
+public class TestDB extends AppCompatActivity {
 
     ListView userList;
     ListView modeList;
