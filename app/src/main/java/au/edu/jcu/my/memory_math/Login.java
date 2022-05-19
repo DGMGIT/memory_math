@@ -118,7 +118,12 @@ public class Login extends Fragment implements View.OnClickListener {
     }
 
     public void buttonPressed() {
-        Intent intent = new Intent(thisContext, TestDB.class);
+
+        List<String> users = gameData.getSelect("USERS", 0);
+        String name = users.get(userID);
+
+        Intent intent = new Intent(thisContext, ModeSelector.class);
+        intent.putExtra("username",name);
         startActivity(intent);
         getActivity().finish();
     }

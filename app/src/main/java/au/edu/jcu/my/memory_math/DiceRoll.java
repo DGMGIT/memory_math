@@ -1,15 +1,13 @@
 package au.edu.jcu.my.memory_math;
 
+import java.util.Random;
+
 public class DiceRoll {
-    private int diceTORoll;
-    private String mode;
-    private int rollResult;
-    private int total;
+    Random random = new Random();
 
-    public int roll(){
-
+    public int roll(int nr) {
+        return 1 + random.nextInt(nr);
     }
-
 }
 
 
