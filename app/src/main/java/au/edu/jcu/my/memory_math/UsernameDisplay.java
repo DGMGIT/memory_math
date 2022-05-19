@@ -8,24 +8,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class ModeEasyStart extends Fragment {
 
-    public ModeEasyStart() {
-        // Required empty public constructor
+public class UsernameDisplay extends Fragment {
+
+    public UsernameDisplay(){
+
     }
 
-    View root;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-
-        root = inflater.inflate(R.layout.fragment_mode_easy_start, container, false);
-
-        return root;
-
+        return inflater.inflate(R.layout.fragment_username_display, container, false);
     }
-
-
 }

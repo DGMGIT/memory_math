@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Memory_math">
         <activity
+            android:name=".play"
+            android:exported="false" />
+        <activity
             android:name=".ModeSelector"
             android:exported="false" />
         <activity

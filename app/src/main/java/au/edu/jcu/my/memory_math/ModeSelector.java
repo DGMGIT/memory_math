@@ -1,10 +1,11 @@
 package au.edu.jcu.my.memory_math;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.List;
 
@@ -21,21 +22,16 @@ public class ModeSelector extends AppCompatActivity {
     private Button medium;
     private Button hard;
 
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mode_selector);
 
         username = getIntent().getStringExtra("username");
-
-//        Bundle extras = getIntent().getExtras();
-//        if (extras != null) {
-//            username = extras.getString("username");
-//        }
-
         gameData = new GameData(this);
-
-
 
         HSEasy = findViewById(R.id.Highscore_easy);
         setHighscores(0, HSEasy);
@@ -45,11 +41,11 @@ public class ModeSelector extends AppCompatActivity {
         setHighscores(2, HShard);
 
         easy = findViewById(R.id.button_mode_easy);
-        easy.setOnClickListener(v -> buttonPressed());
+        easy.setOnClickListener(v -> buttonPressed("easy"));
         medium = findViewById(R.id.button_mode_medium);
-        medium.setOnClickListener(v -> buttonPressed());
+        medium.setOnClickListener(v -> buttonPressed("medium"));
         hard = findViewById(R.id.button_mode_hard);
-        hard.setOnClickListener(v -> buttonPressed());
+        hard.setOnClickListener(v -> buttonPressed("hard"));
 
 
     }
@@ -61,7 +57,11 @@ public class ModeSelector extends AppCompatActivity {
         v.setText(String.format("Highscore: %s", score));
     }
 
-    public void buttonPressed() {
-
+    public void buttonPressed(String mode) {
+        Intent intent = new Intent(this, play.class);
+        intent.putExtra("username", username);
+        intent.putExtra("mode", mode);
+        startActivity(intent);
+        finish();
     }
 }

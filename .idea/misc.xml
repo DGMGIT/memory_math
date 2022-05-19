@@ -4,14 +4,21 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/jc749854/AndroidStudioProjects/memory_math/app/src/main/res/layout/activity_main.xml" value="0.165" />
-        <entry key="..\:/Users/jc749854/AndroidStudioProjects/memory_math/app/src/main/res/layout/activity_mode_selector.xml" value="0.17777777777777778" />
+        <entry key="..\:/Users/jc749854/AndroidStudioProjects/memory_math/app/src/main/res/layout/activity_mode_selector.xml" value="0.1" />
+        <entry key="..\:/Users/jc749854/AndroidStudioProjects/memory_math/app/src/main/res/layout/activity_play.xml" value="0.10416666666666667" />
         <entry key="..\:/Users/jc749854/AndroidStudioProjects/memory_math/app/src/main/res/layout/activity_test_db.xml" value="0.1" />
         <entry key="..\:/Users/jc749854/AndroidStudioProjects/memory_math/app/src/main/res/layout/bbbb.xml" value="0.1" />
+        <entry key="..\:/Users/jc749854/AndroidStudioProjects/memory_math/app/src/main/res/layout/fragment_blank.xml" value="0.1859375" />
         <entry key="..\:/Users/jc749854/AndroidStudioProjects/memory_math/app/src/main/res/layout/fragment_db_test.xml" value="0.3489583333333333" />
         <entry key="..\:/Users/jc749854/AndroidStudioProjects/memory_math/app/src/main/res/layout/fragment_db_test_display.xml" value="0.1" />
         <entry key="..\:/Users/jc749854/AndroidStudioProjects/memory_math/app/src/main/res/layout/fragment_login.xml" value="0.1" />
         <entry key="..\:/Users/jc749854/AndroidStudioProjects/memory_math/app/src/main/res/layout/fragment_mode_easy.xml" value="0.1757852077001013" />
+        <entry key="..\:/Users/jc749854/AndroidStudioProjects/memory_math/app/src/main/res/layout/fragment_mode_easy_answer.xml" value="0.1859375" />
+        <entry key="..\:/Users/jc749854/AndroidStudioProjects/memory_math/app/src/main/res/layout/fragment_mode_easy_run.xml" value="0.1859375" />
+        <entry key="..\:/Users/jc749854/AndroidStudioProjects/memory_math/app/src/main/res/layout/fragment_mode_start_w_out_sensor.xml" value="0.125" />
+        <entry key="..\:/Users/jc749854/AndroidStudioProjects/memory_math/app/src/main/res/layout/fragment_score_display.xml" value="0.1859375" />
         <entry key="..\:/Users/jc749854/AndroidStudioProjects/memory_math/app/src/main/res/layout/fragment_sign_up.xml" value="0.18333333333333332" />
+        <entry key="..\:/Users/jc749854/AndroidStudioProjects/memory_math/app/src/main/res/layout/fragment_username_display.xml" value="0.1859375" />
       </map>
     </option>
   </component>
