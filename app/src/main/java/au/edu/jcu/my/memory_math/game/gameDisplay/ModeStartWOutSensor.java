@@ -1,6 +1,5 @@
-package au.edu.jcu.my.memory_math;
+package au.edu.jcu.my.memory_math.game.gameDisplay;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,7 +8,7 @@ import android.widget.Button;
 
 import androidx.fragment.app.Fragment;
 
-import java.util.List;
+import au.edu.jcu.my.memory_math.R;
 
 public class ModeStartWOutSensor extends Fragment implements View.OnClickListener {
 
@@ -18,7 +17,6 @@ public class ModeStartWOutSensor extends Fragment implements View.OnClickListene
     }
 
     View root;
-
     Button start;
 
     @Override
@@ -26,7 +24,7 @@ public class ModeStartWOutSensor extends Fragment implements View.OnClickListene
                              Bundle savedInstanceState) {
         root = inflater.inflate(R.layout.fragment_mode_start_w_out_sensor, container, false);
 
-        start = root.findViewById(R.id.loginButton);
+        start = root.findViewById(R.id.buttonRun);
         start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -39,6 +37,9 @@ public class ModeStartWOutSensor extends Fragment implements View.OnClickListene
     }
 
     public void buttonPressed() {
+        Play play = (Play) getActivity();
+        assert play != null;
+        play.runFragment();
     }
 
     @Override

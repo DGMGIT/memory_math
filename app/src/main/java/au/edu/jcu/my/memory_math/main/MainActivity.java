@@ -1,10 +1,13 @@
-package au.edu.jcu.my.memory_math;
+package au.edu.jcu.my.memory_math.main;
 
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import au.edu.jcu.my.memory_math.GameData;
+import au.edu.jcu.my.memory_math.R;
 
 public class MainActivity extends AppCompatActivity {
 

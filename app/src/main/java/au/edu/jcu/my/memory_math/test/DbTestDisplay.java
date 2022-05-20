@@ -1,4 +1,4 @@
-package au.edu.jcu.my.memory_math;
+package au.edu.jcu.my.memory_math.test;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -11,6 +11,9 @@ import android.widget.ListView;
 import androidx.fragment.app.Fragment;
 
 import java.util.List;
+
+import au.edu.jcu.my.memory_math.GameData;
+import au.edu.jcu.my.memory_math.R;
 
 public class DbTestDisplay extends Fragment {
 

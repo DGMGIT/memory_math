@@ -1,4 +1,4 @@
-package au.edu.jcu.my.memory_math;
+package au.edu.jcu.my.memory_math.main;
 
 import android.content.Context;
 import android.content.Intent;
@@ -14,6 +14,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.List;
+
+import au.edu.jcu.my.memory_math.GameData;
+import au.edu.jcu.my.memory_math.R;
+import au.edu.jcu.my.memory_math.game.ModeSelector;
 
 public class Login extends Fragment implements View.OnClickListener {
 
@@ -96,7 +100,7 @@ public class Login extends Fragment implements View.OnClickListener {
         }else {
             Toast.makeText(thisContext, "Wrong Password", Toast.LENGTH_SHORT).show();
         }
-
+        loginPassword.setText("");
     }
 
     public void buttonPressedLeft() {
@@ -125,7 +129,6 @@ public class Login extends Fragment implements View.OnClickListener {
         Intent intent = new Intent(thisContext, ModeSelector.class);
         intent.putExtra("username",name);
         startActivity(intent);
-        getActivity().finish();
     }
 
     @Override

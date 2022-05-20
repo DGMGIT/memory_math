@@ -4,11 +4,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#9C27B0"
-    tools:context=".ScoreDisplay">
+    tools:context=".game.gameDisplay.ScoreDisplay">
 
     <TextView
-        android:layout_width="match_parent"
+        android:id="@+id/scoreDisplay"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:text="" />
+        android:gravity="center_horizontal"
+        android:text="@string/test_text"
+        android:textColor="#B3E5FC" />
 
 </FrameLayout>

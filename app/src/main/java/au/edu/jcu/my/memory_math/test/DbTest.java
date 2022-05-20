@@ -1,4 +1,4 @@
-package au.edu.jcu.my.memory_math;
+package au.edu.jcu.my.memory_math.test;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,6 +10,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+
+import au.edu.jcu.my.memory_math.GameData;
+import au.edu.jcu.my.memory_math.R;
 
 
 public class DbTest extends Fragment implements View.OnClickListener {

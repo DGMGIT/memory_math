@@ -1,4 +1,4 @@
-package au.edu.jcu.my.memory_math;
+package au.edu.jcu.my.memory_math.game;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,6 +8,10 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.List;
+
+import au.edu.jcu.my.memory_math.GameData;
+import au.edu.jcu.my.memory_math.R;
+import au.edu.jcu.my.memory_math.game.gameDisplay.Play;
 
 public class ModeSelector extends AppCompatActivity {
 
@@ -58,10 +62,9 @@ public class ModeSelector extends AppCompatActivity {
     }
 
     public void buttonPressed(String mode) {
-        Intent intent = new Intent(this, play.class);
+        Intent intent = new Intent(this, Play.class);
         intent.putExtra("username", username);
         intent.putExtra("mode", mode);
         startActivity(intent);
-        finish();
     }
 }

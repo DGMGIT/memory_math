@@ -24,14 +24,14 @@
 
             <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/fragment_login"
-                android:name="au.edu.jcu.my.memory_math.Login"
+                android:name="au.edu.jcu.my.memory_math.main.Login"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 tools:layout="@layout/fragment_login" />
 
             <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/fragment_signup"
-                android:name="au.edu.jcu.my.memory_math.SignUp"
+                android:name="au.edu.jcu.my.memory_math.main.SignUp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:visibility="gone"
@@ -41,7 +41,7 @@
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/status"
-            android:name="au.edu.jcu.my.memory_math.DbTest"
+            android:name="au.edu.jcu.my.memory_math.test.DbTest"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"

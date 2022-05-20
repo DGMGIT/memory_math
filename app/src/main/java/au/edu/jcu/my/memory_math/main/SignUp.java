@@ -1,4 +1,4 @@
-package au.edu.jcu.my.memory_math;
+package au.edu.jcu.my.memory_math.main;
 
 import android.content.Context;
 import android.content.Intent;
@@ -14,6 +14,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.List;
+
+import au.edu.jcu.my.memory_math.GameData;
+import au.edu.jcu.my.memory_math.R;
+import au.edu.jcu.my.memory_math.test.TestDB;
 
 public class SignUp extends Fragment implements View.OnClickListener {
 

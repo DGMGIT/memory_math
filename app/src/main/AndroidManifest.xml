@@ -10,16 +10,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Memory_math">
         <activity
-            android:name=".play"
+            android:name=".game.gameDisplay.Play"
             android:exported="false" />
         <activity
-            android:name=".ModeSelector"
+            android:name=".game.ModeSelector"
             android:exported="false" />
         <activity
-            android:name=".TestDB"
+            android:name=".test.TestDB"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".main.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -16,4 +16,8 @@
     <string name="let_s_play">Let\'s Play</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="test_text">test text</string>
+    <string name="answer_here">answer here</string>
+    <string name="what_was_the_total">what was the total</string>
+    <string name="done">Done</string>
 </resources>
