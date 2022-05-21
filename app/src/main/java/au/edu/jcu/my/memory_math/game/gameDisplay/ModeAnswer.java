@@ -13,9 +13,9 @@ import android.widget.TextView;
 import au.edu.jcu.my.memory_math.R;
 
 
-public class ModeEasyAnswer extends Fragment {
+public class ModeAnswer extends Fragment {
 
-    public ModeEasyAnswer() {
+    public ModeAnswer() {
         // Required empty public constructor
     }
 
@@ -29,7 +29,7 @@ public class ModeEasyAnswer extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
-        root = inflater.inflate(R.layout.fragment_mode_easy_answer, container, false);
+        root = inflater.inflate(R.layout.fragment_mode_answer, container, false);
 
         getGuess = root.findViewById(R.id.guess);
         done = root.findViewById(R.id.buttonDone);
@@ -42,7 +42,8 @@ public class ModeEasyAnswer extends Fragment {
     private void buttonPressed() {
         Play play = (Play) getActivity();
         assert play != null;
-        String result = (String) getGuess.getText();
-        play.checkResults(Integer. parseInt(result));
+        String result = getGuess.getText().toString();
+        play.gameLoop(Integer. parseInt(result));
+
     }
 }

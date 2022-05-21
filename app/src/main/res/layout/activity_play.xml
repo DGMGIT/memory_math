@@ -6,15 +6,15 @@
     android:layout_height="match_parent">
 
     <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragment_username_display"
+        android:name="au.edu.jcu.my.memory_math.game.gameDisplay.UsernameDisplay"
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
 
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-
-        android:id="@+id/fragment_username_display"
-        android:name="au.edu.jcu.my.memory_math.game.gameDisplay.UsernameDisplay"
         tools:layout="@layout/fragment_username_display">
 
     </androidx.fragment.app.FragmentContainerView>
@@ -31,18 +31,34 @@
     </FrameLayout>
 
     <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragment_score_display"
+        android:name="au.edu.jcu.my.memory_math.game.gameDisplay.ScoreDisplay"
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
 
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-
-        android:id="@+id/fragment_score_display"
-        android:name="au.edu.jcu.my.memory_math.game.gameDisplay.ScoreDisplay"
         tools:layout="@layout/fragment_score_display">
 
     </androidx.fragment.app.FragmentContainerView>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="">
+
+        <au.edu.jcu.my.memory_math.game.background.OuterspaceView
+            android:id="@+id/outerspaceView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="32dp" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

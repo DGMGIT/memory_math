@@ -4,37 +4,33 @@ import android.content.Context;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import java.util.stream.IntStream;
-
-import au.edu.jcu.my.memory_math.GameData;
 import au.edu.jcu.my.memory_math.R;
-import au.edu.jcu.my.memory_math.game.gameEngine.DiceRoll;
+import au.edu.jcu.my.memory_math.game.gameEngine.NumberGame;
 
 public class Play extends AppCompatActivity {
-
-    private String username;
-    private String mode;
-    private int score;
-    private int startingDices;
-    private GameData gameData;
-    private DiceRoll diceRoll;
-
-    int sum;
-
 
     SensorManager sensorManager;
     Sensor accelerometer;
 
+    public NumberGame numberGame;
+
+    private String username;
+    private String mode;
+    private int score = 0;
+    private int[] all;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play);
+
+        //import data
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
                     .setReorderingAllowed(true)
@@ -43,19 +39,38 @@ public class Play extends AppCompatActivity {
 
             username = getIntent().getStringExtra("username");
             mode = getIntent().getStringExtra("mode");
-            score = 0;
-            startingDices();
+        }
 
-            gameData = new GameData(this);
+        // starts game
+        setValues();
 
-            sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
 
-            if (sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER) != null) {
-                accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        if (sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER) != null) {
+            accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        } else {
+            // Failure! No magnetometer.
+        }
+    }
+
+    public void setValues() {
+        numberGame = new NumberGame();
+        int startingDices = startingDices();
+        System.out.println("test mode switch: " + startingDices);
+        numberGame.gameSetUp(startingDices);
+        gameLoop(0);
+    }
+
+    public void gameLoop(int i) {
+        if (i != 0) {
+            if (numberGame.checkResults(i)) {
+                changeFragment("ModeStartWOutSensor");
             } else {
-                // Failure! No magnetometer.
+                finish();
             }
         }
+        all = numberGame.runGame();
+//        addDiceToBackground(this, all.length);
     }
 
     public String getUsername() {
@@ -66,89 +81,51 @@ public class Play extends AppCompatActivity {
         return mode;
     }
 
+    public int[] getAll() {
+        return all;
+    }
+
     public int getScore() {
         return score;
     }
 
-
-    public int getNumDice() {
-        return startingDices;
-    }
-
-    public void runFragment() {
-        // Create new fragment and transaction
-        FragmentManager fragmentManager = getSupportFragmentManager();
-
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.setReorderingAllowed(true);
-
-// Replace whatever is in the fragment_container view with this fragment
-        transaction.replace(R.id.game_display2, ModeEasyRun.class, null);
-
-// Commit the transaction
-        transaction.commit();
-    }
-
-
-    public void answerFragment() {
-        // Create new fragment and transaction
-        FragmentManager fragmentManager = getSupportFragmentManager();
-
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.setReorderingAllowed(true);
-
-// Replace whatever is in the fragment_container view with this fragment
-        transaction.replace(R.id.game_display2, ModeEasyAnswer.class, null);
-
-// Commit the transaction
-        transaction.commit();
-    }
-
-
-    public void startFragment() {
-        // Create new fragment and transaction
-        FragmentManager fragmentManager = getSupportFragmentManager();
-
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.setReorderingAllowed(true);
-
-// Replace whatever is in the fragment_container view with this fragment
-        transaction.replace(R.id.game_display2, ModeEasyAnswer.class, null);
-
-// Commit the transaction
-        transaction.commit();
-    }
-
-    public int[] runGame() {
-        diceRoll = new DiceRoll();
-        sum = 0;
-        int[] allDice = diceRoll.multiRoll(startingDices, 6);
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
-            sum = IntStream.of(allDice).sum();
-            System.out.println("test" + sum);
-        }
-
-        return allDice;
-    }
-
-    public void checkResults(int i) {
-        if(i == sum){
-            score += sum;
-            startFragment();
-        }
-
-    }
-
-    public void startingDices() {
+    public int startingDices() {
         switch (mode) {
             case "easy":
-                startingDices = 3;
+                return 3;
             case "medium":
-                startingDices = 6;
+                return 6;
             case "hard":
-                startingDices = 9;
+                return 9;
         }
+        return 0;
     }
 
 
+    public void changeFragment(String OpenFragment) {
+        // Create new fragment and transaction
+        FragmentManager fragmentManager = getSupportFragmentManager();
+
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.setReorderingAllowed(true);
+
+// Replace whatever is in the fragment_container view with this fragment
+        switch (OpenFragment) {
+            case "ModeRun":
+                transaction.replace(R.id.game_display2, ModeRun.class, null);
+                break;
+            case "ModeAnswer":
+                transaction.replace(R.id.game_display2, ModeAnswer.class, null);
+                break;
+            case "ModeStartWOutSensor":
+                transaction.replace(R.id.game_display2, ModeStartWOutSensor.class, null);
+                break;
+            case "ModeStartWSensor":
+                transaction.replace(R.id.game_display2, ModeStartWOutSensor.class, null);
+                break;
+        }
+
+// Commit the transaction
+        transaction.commit();
+    }
 }

@@ -39,7 +39,7 @@ public class ModeStartWOutSensor extends Fragment implements View.OnClickListene
     public void buttonPressed() {
         Play play = (Play) getActivity();
         assert play != null;
-        play.runFragment();
+        play.changeFragment("ModeRun");
     }
 
     @Override
