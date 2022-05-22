@@ -100,7 +100,7 @@
             android:text="@string/statistics" />
 
         <Button
-            android:id="@+id/Settings"
+            android:id="@+id/button_Settings"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Settings" />

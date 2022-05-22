@@ -45,7 +45,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:visibility="gone"
+            android:visibility="visible"
             tools:layout="@layout/fragment_db_test" />
 
     </LinearLayout>
@@ -64,14 +64,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/login" />
+            android:text="@string/login"
+            style="?android:attr/buttonBarButtonStyle" />
 
         <Button
             android:id="@+id/signupMenu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/signup" />
+            android:text="@string/signup"
+            style="?android:attr/buttonBarButtonStyle" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

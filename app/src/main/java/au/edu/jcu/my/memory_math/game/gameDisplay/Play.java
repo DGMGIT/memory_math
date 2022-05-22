@@ -24,6 +24,7 @@ public class Play extends AppCompatActivity {
     private String mode;
     private int score = 0;
     private int[] all;
+    private int speed;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +40,7 @@ public class Play extends AppCompatActivity {
 
             username = getIntent().getStringExtra("username");
             mode = getIntent().getStringExtra("mode");
+            speed = getIntent().getIntExtra("speed");
         }
 
         // starts game
@@ -87,6 +89,10 @@ public class Play extends AppCompatActivity {
 
     public int getScore() {
         return score;
+    }
+
+    public int getSpeed() {
+        return speed;
     }
 
     public int startingDices() {

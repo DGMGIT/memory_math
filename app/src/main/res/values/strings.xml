@@ -20,4 +20,6 @@
     <string name="answer_here">answer here</string>
     <string name="what_was_the_total">what was the total</string>
     <string name="done">Done</string>
+    <string name="score">score</string>
+    <string name="speed">Speed</string>
 </resources>
