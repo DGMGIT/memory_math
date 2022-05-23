@@ -23,25 +23,34 @@
         android:id="@+id/game_display2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@+id/fragment_score_display"
+        app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fragment_username_display">
 
     </FrameLayout>
 
-    <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/fragment_score_display"
-        android:name="au.edu.jcu.my.memory_math.game.gameDisplay.ScoreDisplay"
-
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
+        android:background="#673AB7"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout="@layout/fragment_score_display">
+        app:layout_constraintStart_toStartOf="parent">
 
-    </androidx.fragment.app.FragmentContainerView>
+        <TextView
+            android:id="@+id/scoreDisplay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="@string/test_text"
+            android:textColor="#B3E5FC"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
 

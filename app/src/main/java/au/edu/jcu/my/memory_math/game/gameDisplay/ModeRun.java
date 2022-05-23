@@ -1,31 +1,23 @@
 package au.edu.jcu.my.memory_math.game.gameDisplay;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.os.CountDownTimer;
-import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import androidx.fragment.app.Fragment;
 
 import au.edu.jcu.my.memory_math.R;
 
 public class ModeRun extends Fragment {
-
-    ExecutorService executorService = Executors.newFixedThreadPool(1);
 
     public ModeRun() {
         // Required empty public constructor
     }
 
     View root;
-    private Handler handler;
     TextView numDisplay;
     int n;
     int t;
@@ -34,8 +26,6 @@ public class ModeRun extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-
         root = inflater.inflate(R.layout.fragment_mode_run, container, false);
         numDisplay = root.findViewById(R.id.numDisplay);
 
@@ -43,14 +33,18 @@ public class ModeRun extends Fragment {
         assert play != null;
         all = play.getAll();
 
+        int speed = play.getSpeed();
+        System.out.println("test speed get: " + speed);
+
+        int tickspeed = 1000 * speed;
 
         int numOfItem = all.length;
         System.out.println("test length: " + numOfItem);
-        int timer = numOfItem * 6000;
+        int timer = numOfItem * (tickspeed * 2);
         n = 0;
         t = 0;
 
-        new CountDownTimer(timer, 3000) {
+        new CountDownTimer(timer, tickspeed) {
             @Override
             public void onTick(long l) {
                 System.out.println("test tick: " + n);

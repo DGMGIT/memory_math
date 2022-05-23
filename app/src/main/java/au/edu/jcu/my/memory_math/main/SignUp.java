@@ -62,7 +62,7 @@ public class SignUp extends Fragment implements View.OnClickListener {
 
     public void addNew(String name, String password) {
         List<String> usernames = gameData.getSelect("USERS", 0);
-        int maxUsers = gameData.numUsers();
+        int maxUsers = gameData.numRows("USERS");
         for (int i = 0; i < maxUsers; i++) {
             String username = usernames.get(i);
             if (username.equals(name)) {

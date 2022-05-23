@@ -32,7 +32,8 @@ public class ModeSelector extends AppCompatActivity {
     private Button statistics;
     private Button setting;
 
-    private int speed;
+    private int speed = 3;
+    int LAUNCH_ACTIVITY_TWO = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,12 +50,13 @@ public class ModeSelector extends AppCompatActivity {
         HShard = findViewById(R.id.Highscore_hard);
         setHighscores(2, HShard);
 
+
         easy = findViewById(R.id.button_mode_easy);
-        easy.setOnClickListener(v -> buttonPressed("easy", 1));
+        easy.setOnClickListener(v -> buttonPressed("EASY", 1));
         medium = findViewById(R.id.button_mode_medium);
-        medium.setOnClickListener(v -> buttonPressed("medium", 1));
+        medium.setOnClickListener(v -> buttonPressed("MEDIUM", 1));
         hard = findViewById(R.id.button_mode_hard);
-        hard.setOnClickListener(v -> buttonPressed("hard", 1));
+        hard.setOnClickListener(v -> buttonPressed("HARD", 1));
 
         statistics = findViewById(R.id.button_statistics);
         statistics.setOnClickListener(v -> buttonPressed("hard", 2));
@@ -73,33 +75,37 @@ public class ModeSelector extends AppCompatActivity {
     }
 
     public void buttonPressed(String mode, int i) {
-        if (i == 1){
+        if (i == 1) {
             Intent intent = new Intent(this, Play.class);
             intent.putExtra("username", username);
             intent.putExtra("mode", mode);
+            intent.putExtra("speed", speed);
+            System.out.println("test speed output: " + speed);
             startActivity(intent);
         }
-        if (i == 2){
+        if (i == 2) {
             Intent intent = new Intent(this, Statistics.class);
             intent.putExtra("username", username);
             startActivity(intent);
         }
-        if (i == 3){
+        if (i == 3) {
             Intent intent = new Intent(this, Setting.class);
             intent.putExtra("speed", speed);
-            startActivity(intent);
+            System.out.println("test speed output: " + speed);
+            startActivityForResult(intent, LAUNCH_ACTIVITY_TWO);
         }
     }
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        switch(requestCode) {
-            case (abc) : {
-                if (resultCode == Activity.RESULT_OK) {
-                    // your stuff
-                }
-                break;
+
+        if (requestCode == LAUNCH_ACTIVITY_TWO) {
+            if(resultCode == Activity.RESULT_OK){
+                speed = data.getIntExtra("speed", 3);
+                System.out.println("test speed input: " + speed);
             }
         }
+    }
+
 }

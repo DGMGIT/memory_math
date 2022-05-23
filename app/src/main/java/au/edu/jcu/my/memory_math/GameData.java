@@ -1,5 +1,6 @@
 package au.edu.jcu.my.memory_math;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.DatabaseUtils;
@@ -73,13 +74,13 @@ public class GameData extends SQLiteOpenHelper {
                 + "\"" + username + "\"," + "\"" + "HARD" + "\"," + "\"" + "HIGHSCORE: 90" + "\");";
 
         String sqlCode4 = "INSERT INTO "+TABLE4+" (USERNAME, SCORE, CTL) VALUES("
-                + "\"" + username + "\","+ "" + 0 + "," + "\"" + "-" + "\");";
+                + "\"" + username + "\","+ "" + 0 + "," + "\"" + "~" + "\");";
 
         String sqlCode5 = "INSERT INTO "+TABLE5+" (USERNAME, SCORE, CTL) VALUES("
-                + "\"" + username + "\","+ "" + 0 + "," + "\"" + "-" + "\");";
+                + "\"" + username + "\","+ "" + 0 + "," + "\"" + "~" + "\");";
 
         String sqlCode6 = "INSERT INTO "+TABLE6+" (USERNAME, SCORE, CTL) VALUES("
-                + "\"" + username + "\","+ "" + 0 + "," + "\"" + "-" + "\");";
+                + "\"" + username + "\","+ "" + 0 + "," + "\"" + "~" + "\");";
 
 
 
@@ -102,16 +103,32 @@ public class GameData extends SQLiteOpenHelper {
 
         database.close();
     }
+    public void addScore(String username, String table, int score, String CTL) {
+        SQLiteDatabase database = this.getWritableDatabase();
+
+        String sqlCode0 = "INSERT INTO " + table + " (USERNAME, SCORE, CTL) VALUES("
+                + "\"" + username + "\"," + "" + score + "," + "\"" + CTL + "\");";
+
+        database.execSQL(sqlCode0);
+    }
+
+    public void updateHighscore(String username, String table, int score) {
+        SQLiteDatabase database = this.getWritableDatabase();
+
+        ContentValues cv = new ContentValues();
+        cv.put("HIGHSCORE", score);
+
+        database.update(table, cv, "username = ?", new String[]{username});
+    }
 
     public void deleteCard(int i) {
         SQLiteDatabase database = this.getWritableDatabase();
         database.delete("FLASHCARDS", "id =" + i, null);
     }
 
-    public int numUsers (){
+    public int numRows(String table){
         SQLiteDatabase database = this.getReadableDatabase();
-
-        int count = (int) DatabaseUtils.queryNumEntries(database, TABLE1);
+        int count = (int) DatabaseUtils.queryNumEntries(database, table);
         database.close();
         return count;
     }

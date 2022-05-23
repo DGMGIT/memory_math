@@ -105,7 +105,7 @@ public class Login extends Fragment implements View.OnClickListener {
 
     public void buttonPressedLeft() {
         userID -= 1;
-        int maxUsers = gameData.numUsers();
+        int maxUsers = gameData.numRows("USERS");
         if (userID < 0) {
             userID = maxUsers - 1;
         }
@@ -114,7 +114,7 @@ public class Login extends Fragment implements View.OnClickListener {
 
     public void buttonPressedRight() {
         userID += 1;
-        int maxUsers = gameData.numUsers();
+        int maxUsers = gameData.numRows("USERS");
         if (userID >= maxUsers) {
             userID = 0;
         }
