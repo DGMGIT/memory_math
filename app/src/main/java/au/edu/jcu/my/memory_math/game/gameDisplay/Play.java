@@ -131,7 +131,7 @@ public class Play extends AppCompatActivity {
             CTL = "~";
         }
         System.out.println("Test: "+ score + CTL);
-//        gameData.addScore(username, mode, score, CTL);
+        gameData.addScore(username, mode, score, CTL);
 
     }
 
