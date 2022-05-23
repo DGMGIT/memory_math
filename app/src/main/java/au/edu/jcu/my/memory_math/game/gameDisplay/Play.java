@@ -1,6 +1,8 @@
 package au.edu.jcu.my.memory_math.game.gameDisplay;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.os.Bundle;
@@ -80,59 +82,10 @@ public class Play extends AppCompatActivity {
                 changeFragment("ModeStartWOutSensor");
                 setScore(score);
             } else {
-                scoreSubmit();
-                finish();
-
+                end();
             }
         }
         all = numberGame.runGame();
-    }
-
-    public void scoreSubmit() {
-        gameData = new GameData(this);
-
-        int SL = gameData.numRows(mode);
-        List<Integer> S = gameData.getSelectBasedInt("USERNAME", mode, 1, username);
-        List<Integer> HS = gameData.getSelectBasedInt("USERNAME", "MODE", 1, username);
-        Integer lastScore = S.get(SL);
-
-        switch (mode) {
-            case "EASY":
-                Integer hs0 = HS.get(0);
-                if(score > hs0){
-                    gameData.updateHighscore(username,mode,score);
-                    System.out.println("Test: "+ score + mode);
-                }
-                break;
-            case "MEDIUM":
-                Integer hs1 = HS.get(1);
-                if(score > hs1){
-                    gameData.updateHighscore(username,mode,score);
-                    System.out.println("Test: "+ score + mode);
-                }
-                break;
-            case "HARD":
-                Integer hs2 = HS.get(2);
-                if(score > hs2){
-                    gameData.updateHighscore(username,mode,score);
-                    System.out.println("Test: "+ score + mode);
-                }
-                break;
-        }
-
-        System.out.println(S);
-
-        String CTL;
-        if(score > lastScore){
-            CTL = "+";
-        }else if (score < lastScore) {
-            CTL = "-";
-        } else {
-            CTL = "~";
-        }
-        System.out.println("Test: "+ score + CTL);
-        gameData.addScore(username, mode, score, CTL);
-
     }
 
     public void setScore(int i) {
@@ -194,5 +147,13 @@ public class Play extends AppCompatActivity {
 
 // Commit the transaction
         transaction.commit();
+    }
+
+    public void end() {
+        Intent returnIntent = new Intent();
+        returnIntent.putExtra("mode", mode);
+        returnIntent.putExtra("score", score);
+        setResult(Activity.RESULT_OK, returnIntent);
+        finish();
     }
 }

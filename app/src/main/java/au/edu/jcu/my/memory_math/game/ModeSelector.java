@@ -33,7 +33,8 @@ public class ModeSelector extends AppCompatActivity {
     private Button setting;
 
     private int speed = 3;
-    int LAUNCH_ACTIVITY_TWO = 1;
+    int LAUNCH_ACTIVITY_ONE = 1;
+    int LAUNCH_ACTIVITY_TWO = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,7 +82,7 @@ public class ModeSelector extends AppCompatActivity {
             intent.putExtra("mode", mode);
             intent.putExtra("speed", speed);
             System.out.println("test speed output: " + speed);
-            startActivity(intent);
+            startActivityForResult(intent, LAUNCH_ACTIVITY_ONE);
         }
         if (i == 2) {
             Intent intent = new Intent(this, Statistics.class);
@@ -100,12 +101,68 @@ public class ModeSelector extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
+        if (requestCode == LAUNCH_ACTIVITY_ONE) {
+            if(resultCode == Activity.RESULT_OK){
+                String mode = data.getStringExtra("mode");
+                int score = data.getIntExtra("score", 3);
+                scoreSubmit(mode, score);
+            }
+        }
+
         if (requestCode == LAUNCH_ACTIVITY_TWO) {
             if(resultCode == Activity.RESULT_OK){
                 speed = data.getIntExtra("speed", 3);
                 System.out.println("test speed input: " + speed);
             }
         }
+    }
+
+    public void scoreSubmit(String mode,int score) {
+        int SL = gameData.numRows(mode);
+        List<Integer> S = gameData.getSelectBasedInt("USERNAME", mode, 1, username);
+        List<Integer> HS = gameData.getSelectBasedInt("USERNAME", "MODE", 1, username);
+        Integer lastScore = S.get(SL);
+
+        switch (mode) {
+            case "EASY":
+                Integer hs0 = HS.get(0);
+                if(score > hs0){
+                    gameData.updateHighscore(username,mode,score);
+                    System.out.println("Test: "+ score + mode);
+                }
+                break;
+            case "MEDIUM":
+                Integer hs1 = HS.get(1);
+                if(score > hs1){
+                    gameData.updateHighscore(username,mode,score);
+                    System.out.println("Test: "+ score + mode);
+                }
+                break;
+            case "HARD":
+                Integer hs2 = HS.get(2);
+                if(score > hs2){
+                    gameData.updateHighscore(username,mode,score);
+                    System.out.println("Test: "+ score + mode);
+                }
+                break;
+        }
+        setHighscores(0, HSEasy);
+        setHighscores(1, HSMedium);
+        setHighscores(2, HShard);
+
+        System.out.println(S);
+
+        String CTL;
+        if(score > lastScore){
+            CTL = "+";
+        }else if (score < lastScore) {
+            CTL = "-";
+        } else {
+            CTL = "~";
+        }
+        System.out.println("Test: "+ score + CTL);
+        gameData.addScore(username, mode, score, CTL);
+
     }
 
 }
