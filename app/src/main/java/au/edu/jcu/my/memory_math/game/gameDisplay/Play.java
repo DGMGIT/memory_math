@@ -34,6 +34,7 @@ public class Play extends AppCompatActivity {
     private int speed;
 
     private TextView scoreDisplay;
+    private String ModeStartWOrOutSensor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,16 +55,16 @@ public class Play extends AppCompatActivity {
 
         scoreDisplay = findViewById(R.id.scoreDisplay);
 
-        // starts game
-        setValues();
-
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
 
         if (sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER) != null) {
-            accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+            ModeStartWOrOutSensor = "ModeStartWSensor";
         } else {
-            // Failure! No magnetometer.
+            ModeStartWOrOutSensor = "ModeStartWOutSensor";
         }
+
+        // starts game
+        setValues();
     }
 
     public void setValues() {
@@ -79,7 +80,7 @@ public class Play extends AppCompatActivity {
         if (i != 0) {
             if (numberGame.checkResults(i)) {
                 score += i;
-                changeFragment("ModeStartWOutSensor");
+                changeFragment(ModeStartWOrOutSensor);
                 setScore(score);
             } else {
                 end();
@@ -141,7 +142,7 @@ public class Play extends AppCompatActivity {
                 transaction.replace(R.id.game_display2, ModeStartWOutSensor.class, null);
                 break;
             case "ModeStartWSensor":
-                transaction.replace(R.id.game_display2, ModeStartWOutSensor.class, null);
+                transaction.replace(R.id.game_display2, ModeStartWSensor.class, null);
                 break;
         }
 

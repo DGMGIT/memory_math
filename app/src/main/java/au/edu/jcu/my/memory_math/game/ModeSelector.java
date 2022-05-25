@@ -15,6 +15,7 @@ import au.edu.jcu.my.memory_math.R;
 import au.edu.jcu.my.memory_math.game.gameDisplay.Play;
 import au.edu.jcu.my.memory_math.game.gameDisplay.setting.Setting;
 import au.edu.jcu.my.memory_math.game.gameDisplay.statistics.Statistics;
+import au.edu.jcu.my.memory_math.game.twitter.TweetThis;
 
 public class ModeSelector extends AppCompatActivity {
 
@@ -31,6 +32,7 @@ public class ModeSelector extends AppCompatActivity {
 
     private Button statistics;
     private Button setting;
+
 
     private int speed = 3;
     int LAUNCH_ACTIVITY_ONE = 1;
@@ -58,6 +60,7 @@ public class ModeSelector extends AppCompatActivity {
         medium.setOnClickListener(v -> buttonPressed("MEDIUM", 1));
         hard = findViewById(R.id.button_mode_hard);
         hard.setOnClickListener(v -> buttonPressed("HARD", 1));
+
 
         statistics = findViewById(R.id.button_statistics);
         statistics.setOnClickListener(v -> buttonPressed("hard", 2));
@@ -102,7 +105,7 @@ public class ModeSelector extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == LAUNCH_ACTIVITY_ONE) {
-            if(resultCode == Activity.RESULT_OK){
+            if (resultCode == Activity.RESULT_OK) {
                 String mode = data.getStringExtra("mode");
                 int score = data.getIntExtra("score", 3);
                 scoreSubmit(mode, score);
@@ -110,59 +113,62 @@ public class ModeSelector extends AppCompatActivity {
         }
 
         if (requestCode == LAUNCH_ACTIVITY_TWO) {
-            if(resultCode == Activity.RESULT_OK){
+            if (resultCode == Activity.RESULT_OK) {
                 speed = data.getIntExtra("speed", 3);
                 System.out.println("test speed input: " + speed);
             }
         }
     }
 
-    public void scoreSubmit(String mode,int score) {
-        int SL = gameData.numRows(mode);
+    public void scoreSubmit(String mode, int score) {
         List<Integer> S = gameData.getSelectBasedInt("USERNAME", mode, 1, username);
+        int SL = S.size();
         List<Integer> HS = gameData.getSelectBasedInt("USERNAME", "MODE", 1, username);
-        Integer lastScore = S.get(SL);
 
-        switch (mode) {
-            case "EASY":
-                Integer hs0 = HS.get(0);
-                if(score > hs0){
-                    gameData.updateHighscore(username,mode,score);
-                    System.out.println("Test: "+ score + mode);
-                }
-                break;
-            case "MEDIUM":
-                Integer hs1 = HS.get(1);
-                if(score > hs1){
-                    gameData.updateHighscore(username,mode,score);
-                    System.out.println("Test: "+ score + mode);
-                }
-                break;
-            case "HARD":
-                Integer hs2 = HS.get(2);
-                if(score > hs2){
-                    gameData.updateHighscore(username,mode,score);
-                    System.out.println("Test: "+ score + mode);
-                }
-                break;
-        }
-        setHighscores(0, HSEasy);
-        setHighscores(1, HSMedium);
-        setHighscores(2, HShard);
-
-        System.out.println(S);
+        Integer lastScore = S.get(SL - 1);
 
         String CTL;
-        if(score > lastScore){
+        if (score > lastScore) {
             CTL = "+";
-        }else if (score < lastScore) {
+        } else if (score < lastScore) {
             CTL = "-";
         } else {
             CTL = "~";
         }
-        System.out.println("Test: "+ score + CTL);
+
+        switch (mode) {
+            case "EASY":
+                Integer hs0 = HS.get(0);
+                if (score > hs0) {
+                    gameData.updateHighscore(username, "MODE", score, "EASY");
+                    postScore(mode, score);
+                }
+                break;
+            case "MEDIUM":
+                Integer hs1 = HS.get(1);
+                if (score > hs1) {
+                    gameData.updateHighscore(username, "MODE", score, "MEDIUM");
+                    postScore(mode, score);                }
+                break;
+            case "HARD":
+                Integer hs2 = HS.get(2);
+                if (score > hs2) {
+                    gameData.updateHighscore(username, "MODE", score, "HARD");
+                    postScore(mode, score);                }
+                break;
+        }
+
+        System.out.println("Test: " + score + CTL);
         gameData.addScore(username, mode, score, CTL);
 
+    }
+
+    public void postScore(String mode, int Score){
+        Intent intent = new Intent(this, TweetThis.class);
+        intent.putExtra("username", username);
+        intent.putExtra("mode", mode);
+        intent.putExtra("Score", Score);
+        startActivity(intent);
     }
 
 }

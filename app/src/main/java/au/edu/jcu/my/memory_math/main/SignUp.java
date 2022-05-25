@@ -3,9 +3,6 @@ package au.edu.jcu.my.memory_math.main;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,11 +10,13 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.fragment.app.Fragment;
+
 import java.util.List;
 
 import au.edu.jcu.my.memory_math.GameData;
 import au.edu.jcu.my.memory_math.R;
-import au.edu.jcu.my.memory_math.test.TestDB;
+import au.edu.jcu.my.memory_math.game.ModeSelector;
 
 public class SignUp extends Fragment implements View.OnClickListener {
 
@@ -27,7 +26,6 @@ public class SignUp extends Fragment implements View.OnClickListener {
     TextView signupUsername;
     TextView signupPassword;
     Button signupButton;
-    int userID = 0;
 
     public void signup() {
     }
@@ -44,20 +42,15 @@ public class SignUp extends Fragment implements View.OnClickListener {
         signupPassword = root.findViewById(R.id.signupPassword);
 
         signupButton = root.findViewById(R.id.signupButton);
-        signupButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                addNew(signupUsername.getText().toString(), signupPassword.getText().toString());
-            }
-        });
+        signupButton.setOnClickListener(v -> addNew(signupUsername.getText().toString(), signupPassword.getText().toString()));
 
         return root;
     }
 
     public void buttonPressed() {
-        Intent intent = new Intent(thisContext, TestDB.class);
+        Intent intent = new Intent(thisContext, ModeSelector.class);
         startActivity(intent);
-        getActivity().finish();
+//        getActivity().finish();
     }
 
     public void addNew(String name, String password) {

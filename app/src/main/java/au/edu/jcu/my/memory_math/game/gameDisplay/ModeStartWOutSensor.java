@@ -25,15 +25,9 @@ public class ModeStartWOutSensor extends Fragment implements View.OnClickListene
         root = inflater.inflate(R.layout.fragment_mode_start_w_out_sensor, container, false);
 
         start = root.findViewById(R.id.buttonRun);
-        start.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                buttonPressed();
-            }
-        });
+        start.setOnClickListener(view -> buttonPressed());
 
         return root;
-
     }
 
     public void buttonPressed() {

@@ -1,13 +1,14 @@
 package au.edu.jcu.my.memory_math.game.gameEngine;
 
+import java.util.Random;
 import java.util.stream.IntStream;
-
-import au.edu.jcu.my.memory_math.game.gameDisplay.Play;
 
 public class NumberGame {
 
-    private DiceRoll diceRoll;
 
+    Random random = new Random();
+
+    int[] rolls;
     int sum;
     int startingDices;
 
@@ -16,9 +17,8 @@ public class NumberGame {
     }
 
     public int[] runGame() {
-        diceRoll = new DiceRoll();
         sum = 0;
-        int[] allDice = diceRoll.multiRoll(startingDices, 6);
+        int[] allDice = multiRoll(startingDices, 6);
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
             sum = IntStream.of(allDice).sum();
             System.out.println("test sum: " + sum);
@@ -31,5 +31,18 @@ public class NumberGame {
 
     public boolean checkResults(int i) {
         return i == sum;
+    }
+
+    public int[] multiRoll(int tr, int nr) {
+        rolls = new int[tr];
+        for (int i = 0; i < tr; i++) {
+            int x = roll(nr);
+            rolls[i] = x;
+        }
+        return rolls;
+    }
+
+    public int roll(int nr) {
+        return 1 + random.nextInt(nr);
     }
 }
