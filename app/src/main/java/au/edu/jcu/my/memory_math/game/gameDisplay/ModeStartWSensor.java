@@ -12,8 +12,6 @@ import android.view.ViewGroup;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 
-import java.util.Objects;
-
 import au.edu.jcu.my.memory_math.R;
 
 public class ModeStartWSensor extends Fragment implements SensorEventListener {
@@ -59,8 +57,6 @@ public class ModeStartWSensor extends Fragment implements SensorEventListener {
     }
 
 //    public void onSensorChanged(SensorEvent sensorEvent) {
-
-
     @Override
     public void onSensorChanged(SensorEvent sensorEvent) {
         Sensor mySensor = sensorEvent.sensor;

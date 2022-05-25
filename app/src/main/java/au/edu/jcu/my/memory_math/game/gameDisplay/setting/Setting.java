@@ -1,21 +1,17 @@
 package au.edu.jcu.my.memory_math.game.gameDisplay.setting;
 
-import androidx.activity.OnBackPressedCallback;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.Activity;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import java.text.MessageFormat;
 
 import au.edu.jcu.my.memory_math.R;
-import au.edu.jcu.my.memory_math.game.gameDisplay.Play;
-import au.edu.jcu.my.memory_math.game.gameDisplay.statistics.Statistics;
 
 public class Setting extends AppCompatActivity {
 

@@ -12,18 +12,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import java.util.List;
-
-import au.edu.jcu.my.memory_math.GameData;
 import au.edu.jcu.my.memory_math.R;
 import au.edu.jcu.my.memory_math.game.gameEngine.NumberGame;
 
 public class Play extends AppCompatActivity {
 
     SensorManager sensorManager;
-    Sensor accelerometer;
 
-    GameData gameData;
     public NumberGame numberGame;
 
     private String username;

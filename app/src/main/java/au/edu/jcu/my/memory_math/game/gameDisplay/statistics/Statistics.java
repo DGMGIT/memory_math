@@ -16,7 +16,6 @@ import au.edu.jcu.my.memory_math.R;
 
 public class Statistics extends AppCompatActivity {
 
-
     private GameData gameData;
     private ArrayAdapter<String> adapter;
 

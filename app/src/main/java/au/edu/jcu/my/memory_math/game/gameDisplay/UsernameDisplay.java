@@ -20,8 +20,6 @@ public class UsernameDisplay extends Fragment {
     }
 
     View root;
-    String username;
-    String Mode;
     TextView usernameDisplay;
     TextView modeDisplay;
 
