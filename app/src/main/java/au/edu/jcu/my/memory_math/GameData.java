@@ -34,7 +34,7 @@ public class GameData extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL("CREATE TABLE " + TABLE2 + " ("
                 + " USERNAME TEXT, "
                 + " MODE TEXT, "
-                + " HIGHSCORE TEXT, "
+                + " HIGHSCORE INTEGER, "
                 + " FOREIGN KEY (" + "USERNAME" + ") REFERENCES  " + TABLE1 + "(" + "USERNAME" + "));");
 
         sqLiteDatabase.execSQL("CREATE TABLE " + TABLE4 + " ("
@@ -67,13 +67,13 @@ public class GameData extends SQLiteOpenHelper {
                 + "\"" + username + "\"," + "\"" + password + "\");";
 
         String sqlCode1 = "INSERT INTO " + TABLE2 + " (USERNAME, MODE, HIGHSCORE) VALUES("
-                + "\"" + username + "\"," + "\"" + "EASY" + "\"," + "\"" + "HIGHSCORE: 30" + "\");";
+                + "\"" + username + "\"," + "\"" + "EASY" + "\"," + 30 + ");";
 
         String sqlCode2 = "INSERT INTO " + TABLE2 + " (USERNAME, MODE, HIGHSCORE) VALUES("
-                + "\"" + username + "\"," + "\"" + "MEDIUM" + "\"," + "\"" + "HIGHSCORE: 60" + "\");";
+                + "\"" + username + "\"," + "\"" + "MEDIUM" + "\"," + 60 + ");";
 
         String sqlCode3 = "INSERT INTO " + TABLE2 + " (USERNAME, MODE, HIGHSCORE) VALUES("
-                + "\"" + username + "\"," + "\"" + "HARD" + "\"," + "\"" + "HIGHSCORE: 90" + "\");";
+                + "\"" + username + "\"," + "\"" + "HARD" + "\"," + 90 + ");";
 
         String sqlCode4 = "INSERT INTO " + TABLE4 + " (USERNAME, SCORE, CTL) VALUES("
                 + "\"" + username + "\"," + "" + 0 + "," + "\"" + "~" + "\");";
@@ -116,22 +116,11 @@ public class GameData extends SQLiteOpenHelper {
     public void updateHighscore(String username, String table, int score, String mode) {
         SQLiteDatabase database = this.getWritableDatabase();
 
-        String s = "HIGHSCORE: " +score;
-
         ContentValues cv = new ContentValues();
-        cv.put("HIGHSCORE", s);
+        cv.put("HIGHSCORE", score);
 
         System.out.println(database.update(table, cv, "USERNAME = ? AND MODE = ?",
                 new String[]{username, mode}));
-    }
-
-    public void deleteall(String i) {
-        SQLiteDatabase database = this.getWritableDatabase();
-        database.delete(TABLE1, "USERNAME =" + i, null);
-        database.delete(TABLE2, "USERNAME =" + i, null);
-        database.delete(TABLE4, "USERNAME =" + i, null);
-        database.delete(TABLE5, "USERNAME =" + i, null);
-        database.delete(TABLE6, "USERNAME =" + i, null);
     }
 
     public int numRows(String table) {
@@ -221,24 +210,6 @@ public class GameData extends SQLiteOpenHelper {
         SQLiteDatabase database = this.getReadableDatabase();
 
         Cursor cursor = database.rawQuery("SELECT * FROM " + table + " ; ", null);
-
-        List<String> result = new ArrayList<>();
-        while (cursor.moveToNext()) {
-            String select = cursor.getString(i);
-            System.out.println("data record contains; " + select);
-
-            result.add(select);
-        }
-        cursor.close();
-        database.close();
-
-        return result;
-    }
-
-    public List<String> getSelectBased(String data, String table, int i, String username) {
-        SQLiteDatabase database = this.getReadableDatabase();
-
-        Cursor cursor = database.rawQuery("SELECT * FROM " + table + " WHERE INSTR(" + data + ", " + "\"" + username + "\"" + ");", null);
 
         List<String> result = new ArrayList<>();
         while (cursor.moveToNext()) {

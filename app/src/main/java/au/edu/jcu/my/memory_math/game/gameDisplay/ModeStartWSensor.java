@@ -1,5 +1,6 @@
 package au.edu.jcu.my.memory_math.game.gameDisplay;
 
+import android.content.Context;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -12,51 +13,49 @@ import android.view.ViewGroup;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 
+import java.util.List;
+
 import au.edu.jcu.my.memory_math.R;
 
 public class ModeStartWSensor extends Fragment implements SensorEventListener {
 
-    public ModeStartWSensor() {
-        // Required empty public constructor
-    }
-
     View root;
+
+    private SensorManager senSensorManager;
+    private Sensor senAccelerometer;
 
     private long lastUpdate = 0;
     private float last_x, last_y, last_z;
     private static final int SHAKE_THRESHOLD = 600;
 
-    private SensorManager senSensorManager;
-    private Sensor senAccelerometer;
-
-    FragmentActivity act;
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        root = inflater.inflate(R.layout.fragment_mode_start_w_out_sensor, container, false);
+        root = inflater.inflate(R.layout.fragment_mode_start_w_sensor, container, false);
 
-
-        act = getActivity();
-
-        senSensorManager = (SensorManager) requireActivity().getSystemService(getActivity().SENSOR_SERVICE);
+        senSensorManager = (SensorManager) getActivity().getSystemService(Context.SENSOR_SERVICE);
+        List<Sensor> deviceSensors = senSensorManager.getSensorList(Sensor.TYPE_ALL);
         senAccelerometer = senSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-        senSensorManager.registerListener((SensorEventListener) getActivity(), senAccelerometer, SensorManager.SENSOR_DELAY_NORMAL);
+        senSensorManager.registerListener(this, senAccelerometer, SensorManager.SENSOR_DELAY_NORMAL);
 
         return root;
     }
 
-    public void onPause() {
-        super.onPause();
-        senSensorManager.unregisterListener((SensorEventListener) act);
-    }
-
     public void onResume() {
         super.onResume();
-        senSensorManager.registerListener((SensorEventListener) act, senAccelerometer, SensorManager.SENSOR_DELAY_NORMAL);
+        senSensorManager.registerListener((SensorEventListener) this, senAccelerometer, SensorManager.SENSOR_DELAY_NORMAL);
     }
 
-//    public void onSensorChanged(SensorEvent sensorEvent) {
+    public void onPause() {
+        super.onPause();
+        senSensorManager.unregisterListener(this);
+    }
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int i) {
+
+    }
+
     @Override
     public void onSensorChanged(SensorEvent sensorEvent) {
         Sensor mySensor = sensorEvent.sensor;
@@ -84,11 +83,6 @@ public class ModeStartWSensor extends Fragment implements SensorEventListener {
             last_y = y;
             last_z = z;
         }
-    }
-
-    @Override
-    public void onAccuracyChanged(Sensor sensor, int i) {
-
     }
 
     public void buttonPressed() {

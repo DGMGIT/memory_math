@@ -44,7 +44,7 @@ public class ModeAnswer extends Fragment {
         assert play != null;
         String result = getGuess.getText().toString();
         if (result.isEmpty()) {
-            play.gameLoop(0);
+            play.gameLoop(1);
         }else {
             play.gameLoop(Integer.parseInt(result));
         }

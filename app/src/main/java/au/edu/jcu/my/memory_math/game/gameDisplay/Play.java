@@ -37,15 +37,15 @@ public class Play extends AppCompatActivity {
         setContentView(R.layout.activity_play);
 
         //import data
+        username = getIntent().getStringExtra("username");
+        mode = getIntent().getStringExtra("mode");
+        speed = getIntent().getIntExtra("speed", 3);
+
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
                     .setReorderingAllowed(true)
-                    .add(R.id.game_display2, ModeStartWOutSensor.class, null)
+                    .add(R.id.game_display2, ModeStartWSensor.class, null)
                     .commit();
-
-            username = getIntent().getStringExtra("username");
-            mode = getIntent().getStringExtra("mode");
-            speed = getIntent().getIntExtra("speed", 3);
         }
 
         scoreDisplay = findViewById(R.id.scoreDisplay);
@@ -125,7 +125,7 @@ public class Play extends AppCompatActivity {
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.setReorderingAllowed(true);
 
-// Replace whatever is in the fragment_container view with this fragment
+        // Replace whatever is in the fragment_container view with this fragment
         switch (OpenFragment) {
             case "ModeRun":
                 transaction.replace(R.id.game_display2, ModeRun.class, null);
@@ -140,8 +140,7 @@ public class Play extends AppCompatActivity {
                 transaction.replace(R.id.game_display2, ModeStartWSensor.class, null);
                 break;
         }
-
-// Commit the transaction
+        // Commit the transaction
         transaction.commit();
     }
 

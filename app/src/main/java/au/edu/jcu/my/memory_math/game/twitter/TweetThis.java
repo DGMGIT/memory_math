@@ -21,10 +21,7 @@ public class TweetThis extends AppCompatActivity {
     private Button buttonPostIt;
     private Button buttonNope;
 
-    private String username;
-    private String mode;
-    private int score;
-
+    String latestStatus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,11 +29,14 @@ public class TweetThis extends AppCompatActivity {
         setContentView(R.layout.activity_tweet_this);
 
 
-        username = getIntent().getStringExtra("username");
-        mode = getIntent().getStringExtra("mode");
-        score = getIntent().getIntExtra("Score", 30);
+        String username = getIntent().getStringExtra("username");
+        String mode = getIntent().getStringExtra("mode");
+        int score = getIntent().getIntExtra("Score", 30);
+
+        String latestStatus = "Users " + username + " got a new HighScore on " + mode + " mode: " + score + "Points WoW";
 
         tweetEg = findViewById(R.id.tweetEg);
+        tweetEg.setText(latestStatus);
 
 
         buttonPostIt = findViewById(R.id.buttonPostIt);
@@ -49,10 +49,8 @@ public class TweetThis extends AppCompatActivity {
     public void buttonPressed(String i) {
         if (i.equals("post")) {
             postTweet();
-            finish();
-        }else {
-            finish();
         }
+        finish();
     }
 
     public void postTweet(){
@@ -65,7 +63,6 @@ public class TweetThis extends AppCompatActivity {
         TwitterFactory tf = new TwitterFactory(cb.build());
         Twitter twitter = tf.getInstance();
 
-        String latestStatus = "Users " + username + " got a new HighScore on " + mode + " mode: " + score + "Points WoW";
         Status status = null;
         try {
             status = twitter.updateStatus(latestStatus);

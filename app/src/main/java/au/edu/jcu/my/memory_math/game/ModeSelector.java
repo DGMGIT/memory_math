@@ -70,11 +70,10 @@ public class ModeSelector extends AppCompatActivity {
 
 
     }
-
-
+    
     public void setHighscores(int i, TextView v) {
-        List<String> scores = gameData.getSelectBased("USERNAME", "MODE", 2, username);
-        String score = scores.get(i);
+        List<Integer> scores = gameData.getSelectBasedInt("USERNAME", "MODE", 2, username);
+        Integer score = scores.get(i);
         v.setText(String.format("Highscore: %s", score));
     }
 
@@ -109,6 +108,18 @@ public class ModeSelector extends AppCompatActivity {
                 String mode = data.getStringExtra("mode");
                 int score = data.getIntExtra("score", 3);
                 scoreSubmit(mode, score);
+                switch (mode){
+                    case ("Easy"):
+                        setHighscores(score,HSEasy);
+                    break;
+                    case "MEDIUM":
+                        setHighscores(score,HSMedium);
+                        break;
+                    case "HARD":
+                        setHighscores(score,HShard);
+                        break;
+                }
+
             }
         }
 
@@ -123,7 +134,8 @@ public class ModeSelector extends AppCompatActivity {
     public void scoreSubmit(String mode, int score) {
         List<Integer> S = gameData.getSelectBasedInt("USERNAME", mode, 1, username);
         int SL = S.size();
-        List<Integer> HS = gameData.getSelectBasedInt("USERNAME", "MODE", 1, username);
+        List<Integer> HS = gameData.getSelectBasedInt("USERNAME", "MODE", 2, username);
+        System.out.println(HS);
 
         Integer lastScore = S.get(SL - 1);
 
@@ -139,6 +151,7 @@ public class ModeSelector extends AppCompatActivity {
         switch (mode) {
             case "EASY":
                 Integer hs0 = HS.get(0);
+                System.out.println("test display HS.get(0): " + HS.get(0) + HS.get(1) + HS.get(2));
                 if (score > hs0) {
                     gameData.updateHighscore(username, "MODE", score, "EASY");
                     postScore(mode, score);
@@ -148,13 +161,15 @@ public class ModeSelector extends AppCompatActivity {
                 Integer hs1 = HS.get(1);
                 if (score > hs1) {
                     gameData.updateHighscore(username, "MODE", score, "MEDIUM");
-                    postScore(mode, score);                }
+                    postScore(mode, score);
+                }
                 break;
             case "HARD":
                 Integer hs2 = HS.get(2);
                 if (score > hs2) {
                     gameData.updateHighscore(username, "MODE", score, "HARD");
-                    postScore(mode, score);                }
+                    postScore(mode, score);
+                }
                 break;
         }
 

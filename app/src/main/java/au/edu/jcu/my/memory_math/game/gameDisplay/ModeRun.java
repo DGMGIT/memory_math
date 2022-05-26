@@ -1,5 +1,6 @@
 package au.edu.jcu.my.memory_math.game.gameDisplay;
 
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.LayoutInflater;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 
 import au.edu.jcu.my.memory_math.R;
+import au.edu.jcu.my.memory_math.main.MainActivity;
 
 public class ModeRun extends Fragment {
 
@@ -17,11 +19,15 @@ public class ModeRun extends Fragment {
         // Required empty public constructor
     }
 
+    MediaPlayer myBGMusicRun;
+
     View root;
     TextView numDisplay;
     int n;
     int t;
     int[] all;
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -32,6 +38,10 @@ public class ModeRun extends Fragment {
         Play play = (Play) getActivity();
         assert play != null;
         all = play.getAll();
+
+        myBGMusicRun=MediaPlayer.create(getActivity(),R.raw.bg2);
+
+        myBGMusicRun.start();
 
         int speed = play.getSpeed();
         System.out.println("test speed get: " + speed);
@@ -70,5 +80,18 @@ public class ModeRun extends Fragment {
             }
         }.start();
         return root;
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        myBGMusicRun.pause();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        myBGMusicRun.start();
+        myBGMusicRun.setLooping(true);
     }
 }
